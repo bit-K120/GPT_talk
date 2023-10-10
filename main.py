@@ -5,8 +5,8 @@ from gtts import gTTS
 import openai
 import time
 
-
-osopenai.api_key
+load_dotenv()
+osopenai.api_key = os.getenv("OPENAI_API_KEY")
 
 def recognise_speech_from_mic():
     recognizer = sr.Recognizer()
