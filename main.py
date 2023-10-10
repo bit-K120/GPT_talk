@@ -1,9 +1,12 @@
 import os
 from dotenv import load_dotenv
 import speech_recognition as sr
+from gtts import gTTS
+import openai
+import time
 
 
-
+osopenai.api_key
 
 def recognise_speech_from_mic():
     recognizer = sr.Recognizer()
@@ -29,12 +32,41 @@ def recognise_speech_from_mic():
             print("googleからテキストソースを取得できませんでした。")
 
 
-def speak_text
+def text_to_speach(text):
+    tts = gTTS(text=text, lang="en")
+    tts.save("response.mp3")
+    os.system("mpg123 response.mp3")
+
+def chat_GPT():
+    text_to_speach("Hey, what's up?")
+    while True:
+        user_input = recognise_speech_from_mic()
+        if user_input:
+            print(f"You:{user_input}")
+            if user_input.lower() in ["exit", "bye"]:
+                text_to_speach("Good bye!")
+                break
+
+        response = openai.Completion.create(
+            message= {"role": "system", "content": "You are a friendly person."}, 
+            engine = "gpt-3.5-turbo-4k",
+            prompt = user_input,
+            max_tokens=150
+            )              
+
+        gpt_response = response.choice[0].text.strip()
+        print(f"ChatGPT:{gpt_response}") 
+        text_to_speach(gpt_response)
+    time.sleep(2)                
+    
+
 
 def main():
-    text = recognise_speech_from_mic()
-    if text:
-        print(f"You said:{text}")
+    user_text = recognise_speech_from_mic()
+    if user_text:
+        print(f"You said:{user_text}")
+    chat_GPT()
+    
 
 
 
