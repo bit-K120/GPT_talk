@@ -3,7 +3,8 @@ import speech_recognition as sr
 
 def recognise_speech_from_mic():
     recognizer = sr.Recognizer()
-
+    if os.path.exists("user_said.txt"):
+        os.remove("user_said.txt")
     with sr.Microphone(device_index=1) as source:
         # print("Adjusting for ambient noise...")
         # recognizer.adjust_for_ambient_noise(source, duration=5)
@@ -15,6 +16,8 @@ def recognise_speech_from_mic():
         try: 
             if hasattr(recognizer, recognition_method):
                 text = getattr(recognizer, recognition_method)(audio, language="en-GB")
+                with open("user_said.txt", "w") as file:
+                    file.write(text)
                 return text 
             else:
                 raise AttributeError(f"{type(recognizer).__name__} has no object '{recognition_method}' ")             
