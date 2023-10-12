@@ -3,6 +3,7 @@ from google.cloud import texttospeech
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_API_KEY")
 
 
@@ -10,10 +11,10 @@ def text_to_speech(gpt_response):
     # google text to speechのクライアントを起動
     client = texttospeech.TextToSpeechClient()
     # 発生する声の設定
-    synthesis_input = texttospeech.SynthesisInput(text = gpt_response)
+    synthesis_input = texttospeech.SynthesisInput(text=gpt_response)
     voice = texttospeech.VoiceSelectionParams(
-        language_code = "en-US",
-        ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+        language_code="en-GB",
+        ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
     )
     # 出力する音声ファイルの設定
     audio_config = texttospeech.AudioConfig(
@@ -21,8 +22,8 @@ def text_to_speech(gpt_response):
     )
     # APIに接続
     response = client.synthesize_speech(
-        input= synthesis_input,
-        voice = voice,
+        input=synthesis_input,
+        voice=voice,
         audio_config= audio_config)
     # 音声ファイルを保存
     with open("output.mp3", "wb") as out:

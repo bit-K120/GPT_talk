@@ -14,7 +14,7 @@ def recognise_speech_from_mic():
         recognition_method = f"recognize_{recognition_source}"
         try: 
             if hasattr(recognizer, recognition_method):
-                text = getattr(recognizer, recognition_method)(audio)
+                text = getattr(recognizer, recognition_method)(audio, language="en-GB")
                 return text 
             else:
                 raise AttributeError(f"{type(recognizer).__name__} has no object '{recognition_method}' ")             

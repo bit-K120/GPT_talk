@@ -8,9 +8,11 @@ from tts_config import text_to_speech
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def chat_GPT_chat():
-    print("Hey, what's up!")
-    text_to_speech("Hey, what's up!")
+
+
+def AI_chat_GPT():
+    print("Hey, What's up!!")
+    text_to_speech("Hey, What's up!!")
 
     while True:
         # マイクから取ってきたものを関数化
@@ -18,18 +20,20 @@ def chat_GPT_chat():
         if user_input:
             print(f"You:{user_input}")
             # exitまたはbyeで終了
-            if user_input.lower() in ["exit", "bye","quit"]:
-                text_to_speech("Good bye!")
+            if user_input.lower() in ["終了", "さようなら","またね"]:
+                text_to_speech("またね!")
                 break
-        # ChatGPTの設定
+        # aiの設定
         response = openai.ChatCompletion.create(
             model = "gpt-3.5-turbo",
-            messages = [{"role": "system", "content": "You are a friendly person."},
+            messages = [{"role": "system", "content": "You are a friendly person"},
                         {"role": "system", "content": user_input}
-            ],
-            )              
-        # ChatGPTから生成されたものから文字部分のみ抽出
+            ]
+        )
+                                                        
+                      
+        # aiから生成されたものから文字部分のみ抽出
         gpt_response = response.choices[0].message.content
-        print(f"ChatGPT:{gpt_response}") 
+        print(f"AI:{gpt_response}") 
         text_to_speech(gpt_response)
     time.sleep(2)
