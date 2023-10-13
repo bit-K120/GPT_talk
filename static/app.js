@@ -16,6 +16,12 @@ $(document).ready(() => {
   const is_mobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
     navigator.userAgent.toLowerCase()
   );
+  
+  document.getElementById('floater').addEventListener('click', function() {
+    fetch('/button_clicked', {method: 'POST'})
+    .then(response => response.text())
+    .then(data => alert(data));
+  });
 
 
   // get navigation width while relative and apy width to fixed position
