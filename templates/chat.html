@@ -7,7 +7,6 @@
   <link rel="stylesheet" type="text/css" href="../static/chat.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="socket.io/socket.io.js"></script>
-  <script src="../static/chat.js"></script>
    <script type="text/javascript">
         var socket = io.connect('http://localhost:8000');
         socket.on('new_speech', function(data) {
@@ -49,8 +48,10 @@
 
   <form class="msger-inputarea">
     <input type="text" class="msger-input" placeholder="Enter your message...">
-    <button type="submit" class="msger-send-btn">Send</button>
+    <input type="text" id="inputbox">
+    <button type="submit" class="msger-send-btn" onclick="send_to_python">Send</button>
   </form>
 </section>
+<script src="../static/chat.js"></script>
 </body>
 </html>

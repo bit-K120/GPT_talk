@@ -17,7 +17,8 @@ def AI_chat_GPT():
 
     while True:
         # マイクから取ってきたものを関数化
-        user_input = recognise_speech_from_mic()
+        with open("user_said.txt", "r") as file:
+            user_input = file.read()
         if user_input:
             print(f"You:{user_input}")
             # exitまたはbyeで終了

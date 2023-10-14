@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
+import random
+import json
 from speech_detection import recognise_speech_from_mic
 from flask_socketio import SocketIO  
 
@@ -7,7 +9,7 @@ from flask_socketio import SocketIO
 def flask_main():
     
     app = Flask(__name__)
-    socketio = SocketIO(app)
+    # socketio = SocketIO(app)
 
     @app.route('/', methods = ["GET","POST"])
     def index():
@@ -23,30 +25,31 @@ def flask_main():
             return render_template("chat.html", message = message)
         return render_template("chat.html")
     
-    # @app.route("/call_from_ajax", methods = ["POST"])
-    # def callfromajax():
-    #     if request.method == "POST":
-    #         # ここにPythonの処理を書く
-    #         try:
-    #             with open("user_said.txt","r") as file:
-    #                 speech_text = file.read()
+    @app.route("/call_from_ajax", methods = ["POST"])
+    def callfromajax():
+        if request.method == "POST":
+            # ここにPythonの処理を書く
+            try:
+                with open("user_said.txt","r") as file:
+                    speech_text = file.read()
            
-    #         except Exception as e:
-    #             message = str(e)
-    #         dict = {"user_input":speech_text}      # 辞書
-    #     return json.dumps(dict)     
-
-        # Now you have the speech_text, and you can handle it as needed
+            except Exception as e:
+                message = str(e)
+            dict = {"user_input":speech_text}      # 辞書
+        return json.dumps(dict)     
         
+    # ----ソケットここから-----
+    # @socketio.on('speech_detected')
+    # def handle_speech(data):
+    #     with open("user_said.txt","r") as file:
+    #         speech_text = file.read()  
 
-    @socketio.on('speech_detected')
-    def handle_speech(data):
-        with open("user_said.txt","r") as file:
-            speech_text = file.read()  
-
-        socketio.emit('new_speech', {'speech_text': speech_text})
+    #     socketio.emit('new_speech', {'speech_text': speech_text})
     
-    socketio.run(app, debug=True, host='127.0.0.1', port=8000)
+    # socketio.run(app, debug=True, host='127.0.0.1', port=8000)
+    # ----ソケットここまで----
+
+    app.run(debug=True, host='127.0.0.1', port=8000)
 
 
 
