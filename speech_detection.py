@@ -1,20 +1,12 @@
-import socketio
 import speech_recognition as sr
 import os
 
-sio = socketio.Client()
-
-def connect():
-    print("Connected to Flask server")
-    sio.connect("http://127.0.0.1:8000")
 
 
-def recognise_speech_from_mic():
-    connect()    
-    
+def recognise_speech_from_mic(socketio: SocketIO):
     recognizer = sr.Recognizer()
-    if os.path.exists("user_said.txt"):
-        os.remove("user_said.txt")
+    # if os.path.exists("user_said.txt"):
+    #     os.remove("user_said.txt")
     with sr.Microphone(device_index=1) as source:
         # print("Adjusting for ambient noise...")
         # recognizer.adjust_for_ambient_noise(source, duration=5)
@@ -24,15 +16,17 @@ def recognise_speech_from_mic():
         recognition_source = "google"
         recognition_method = f"recognize_{recognition_source}"
         try: 
-            if hasattr(recognizer, recognition_method):
-                text = getattr(recognizer, recognition_method)(audio, language="en-GB")
-                with open("user_said.txt", "w") as file:
-                    file.write(text)
-                sio.emit("speech_detected", {"text": "speech_detected!"})
-                return text 
-            else:
-                raise AttributeError(f"{type(recognizer).__name__} has no object '{recognition_method}' ")             
+            # if hasattr(recognizer, recognition_method):
+                # text = getattr(recognizer, recognition_method)(audio, language="en-GB")
+                # with open("user_said.txt", "w") as file:
+                #     file.write(text)
+                # socketio = SocketIO('localhost', 8000)
+                # client = socketio.define("/","")
+                socketio.emit("speech_detected", {"text": "speech_detected!"})
+            # else:
+            #     raise AttributeError(f"{type(recognizer).__name__} has no object '{recognition_method}' ")             
         except sr.UnknownValueError:
             print("googleが音を検知できませんでした。")
         except sr.RequestError as e:
             print("googleからテキストソースを取得できませんでした。")
+

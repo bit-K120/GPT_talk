@@ -16,6 +16,7 @@ const BOT_NAME = "BOT";
 const PERSON_NAME = "User";
 
 // var socket = io.connect('http://localhost:8000/socket.io/socket.io.js');
+
 var socket = io();
 socket.on('new_speech', function(data) {
   const msgerInput = data.speech_text;
