@@ -2,3 +2,5 @@
 .env
 gpt-talk.json
 __pycache__
+output.mp3
+user_said.txt

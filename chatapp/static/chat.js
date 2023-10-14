@@ -12,7 +12,7 @@ const BOT_MSGS = [
 // Icons made by Freepik from www.flaticon.com
 const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
-const BOT_NAME = "BOT";
+const BOT_NAME = "AI";
 const PERSON_NAME = "User";
 
 // var socket = io.connect('http://localhost:8000/socket.io/socket.io.js');
@@ -28,7 +28,19 @@ socket.on('new_speech', function(data) {
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
   // msgerInput.value = "";
 
-  botResponse();
+  
+});
+
+socket.on('gpt_input', function(data) {
+  const botInput = data.gpt_input;
+  console.log(botInput);
+  
+  const msgText = botInput
+  if (!msgText) return;
+
+  appendMessage(BOT_NAME, PERSON_IMG, "left", msgText);
+  // msgerInput.value = "";
+
 });
 
 //   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);

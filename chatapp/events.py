@@ -15,3 +15,11 @@ def handle_speech(data):
         speech_text = file.read()
     print("speech about to be emitted!")
     socketio.emit("new_speech", {"speech_text": speech_text})
+
+@socketio.on("gpt_responded")
+def handle_gpt(data):
+    print("speech_detected!")
+    with open("gpt_response.txt", "r") as file:
+        gpt_input = file.read()
+    print("gpt response about to be emitted!")
+    socketio.emit("gpt_input", {"gpt_input": gpt_input})
