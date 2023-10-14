@@ -1,5 +1,4 @@
 const msgerForm = get(".msger-inputarea");
-const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
 
 const BOT_MSGS = [
@@ -10,49 +9,18 @@ const BOT_MSGS = [
   "I feel sleepy! :("
 ];
 
-let messageSent = false;  // A flag to keep track of whether the message has been sent or not
-
-
-// Function to fetch data from the Python server
-async function fetchDataFromPython() {
-  try {
-    const response = await fetch('/get_data');
-    const data = await response.json();
-    
-    // Now you can use the data in your JavaScript code
-    console.log(data);
-    if(!messageSent){
-    // automatically send message as soon as it receives data from python
-    appendMessage(PERSON_NAME, PERSON_IMG, "right", data.message);
-    msgerInput.value = "";
-    botResponse();
-
-    messageSent = true;  // Set the flag to true after sending the message
-  }
-
-  } catch (error) {
-    console.error('Error fetching data from Python:', error);
-  }
-}
-
-msgerForm.addEventListener("submit", async event => preventDefault();
-  event.preventDefault();
-  await fetchDataFromPython();
-});
-
-
-
 // Icons made by Freepik from www.flaticon.com
 const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
-const BOT_NAME = "AI";
-const PERSON_NAME = "User_1";
+const BOT_NAME = "BOT";
+const PERSON_NAME = "User";
 
-msgerForm.addEventListener("submit", async event => {
-  event.preventDefault();
+var socket = io.connect('http://localhost:8000/socket.io/socket.io.js');
+socket.on('new_speech', function(data) {
+  const msgerInput = data.speech_text;
+  console.log(msgerInput);
 
-  // const msgText = msgerInput.value;
-  const msgText = await fetchDataFromPython();
+  const msgText = msgerInput
   if (!msgText) return;
 
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
@@ -60,6 +28,10 @@ msgerForm.addEventListener("submit", async event => {
 
   botResponse();
 });
+
+
+
+
 
 function appendMessage(name, img, side, text) {
   //   Simple solution for small apps

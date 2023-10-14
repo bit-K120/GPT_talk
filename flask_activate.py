@@ -17,26 +17,33 @@ def flask_main():
             
     @app.route('/chat', methods = ["GET", "POST"])
     def chat():
+        
         if request.method == "POST":
             message = request.form["message"]
             return render_template("chat.html", message = message)
         return render_template("chat.html")
-        
-    @app.route('/get_data', methods = ['GET'])
-    def get_data():
-        with open("user_said.txt", "r") as file:
-            user_input = file.read()
-            print(user_input)
-        data = {"message": user_input}
-        return jsonify(data), 200
+    
+    # @app.route("/call_from_ajax", methods = ["POST"])
+    # def callfromajax():
+    #     if request.method == "POST":
+    #         # ここにPythonの処理を書く
+    #         try:
+    #             with open("user_said.txt","r") as file:
+    #                 speech_text = file.read()
+           
+    #         except Exception as e:
+    #             message = str(e)
+    #         dict = {"user_input":speech_text}      # 辞書
+    #     return json.dumps(dict)     
 
-    @socketio.on('get_speech')
-    def handle_speech(data):
-    # Fetch the speech text (you might get this from your speech recognition function)
-        with open("user_said.txt","r") as file:
-            speech_text = file.read()  # Replace this with your actual speech text
+        # Now you have the speech_text, and you can handle it as needed
         
-        # Emit the speech text to the client
+
+    @socketio.on('speech_detected')
+    def handle_speech(data):
+        with open("user_said.txt","r") as file:
+            speech_text = file.read()  
+
         socketio.emit('new_speech', {'speech_text': speech_text})
     
     socketio.run(app, debug=True, host='127.0.0.1', port=8000)

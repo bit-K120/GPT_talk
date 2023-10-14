@@ -1,8 +1,17 @@
+import socketio
 import speech_recognition as sr
 import os
 
+sio = socketio.Client()
+
+def connect():
+    print("Connected to Flask server")
+    sio.connect("http://127.0.0.1:8000")
+
 
 def recognise_speech_from_mic():
+    connect()    
+    
     recognizer = sr.Recognizer()
     if os.path.exists("user_said.txt"):
         os.remove("user_said.txt")
@@ -19,6 +28,7 @@ def recognise_speech_from_mic():
                 text = getattr(recognizer, recognition_method)(audio, language="en-GB")
                 with open("user_said.txt", "w") as file:
                     file.write(text)
+                sio.emit("speech_detected", {"text": "speech_detected!"})
                 return text 
             else:
                 raise AttributeError(f"{type(recognizer).__name__} has no object '{recognition_method}' ")             
