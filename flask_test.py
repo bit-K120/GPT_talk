@@ -3,14 +3,15 @@ from flask_socketio import SocketIO
 
 
 app = Flask(__name__)
-socketio = SocketIO(app)
-
+# socketio = SocketIO(app)
 
 
 @app.route('/chat', methods = ["GET"])
 def chat():
-    return render_template("chat.html")
+    try:
+        return render_template("chat.html")
+    except Exception as e:
+        return str(e)
 
-socketio.run(app,debug=True, host='127.0.0.1', port=5000)
-
-
+if __name__ == '__main__':
+    app.run(debug=True, host='127.0.0.1', port=8000)

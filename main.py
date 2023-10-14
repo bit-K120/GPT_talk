@@ -1,7 +1,6 @@
 from main_output_ChatGPT import AI_chat_GPT
 from main_output_Mi7B import AI_chat_Mi7B
 from flask_activate import flask_main
-import socketio  
 
 
 

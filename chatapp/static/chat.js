@@ -15,38 +15,24 @@ const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
 const BOT_NAME = "BOT";
 const PERSON_NAME = "User";
 
-// --ソケットここから--
 // var socket = io.connect('http://localhost:8000/socket.io/socket.io.js');
-// socket.on('new_speech', function(data) {
-//   const msgerInput = data.speech_text;
-//   console.log(msgerInput);
 
-//   const msgText = msgerInput
-//   if (!msgText) return;
+var socket = io();
+socket.on('new_speech', function(data) {
+  const msgerInput = data.speech_text;
+  console.log(msgerInput);
+  
+  const msgText = msgerInput
+  if (!msgText) return;
+
+  appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+  // msgerInput.value = "";
+
+  botResponse();
+});
 
 //   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
 //   msgerInput.value = "";
-
-//   botResponse();
-// });
-// --ソケットここまで--
-
-function send_to_python() {
-    var send_data = $("#sample_text").val();
-    $.ajax("/call_from_ajax", {
-        type: "post",
-        data: {"data": send_data},              // 連想配列をPOSTする
-    }).done(function(received_data) {           // 戻ってきたのはJSON（文字列）
-        var dict = JSON.parse(received_data);   // JSONを連想配列にする
-        // 以下、Javascriptで料理する
-        var answer = dict["user_input"];
-        appendMessage(PERSON_NAME, PERSON_IMG, "right", answer);
-        msgerInput.value = "";
-    }).fail(function() {
-        console.log("失敗");
-    });
-};
-
 
 function appendMessage(name, img, side, text) {
   //   Simple solution for small apps
@@ -68,6 +54,7 @@ function appendMessage(name, img, side, text) {
   msgerChat.insertAdjacentHTML("beforeend", msgHTML);
   msgerChat.scrollTop += 500;
 }
+
 
 function botResponse() {
   const r = random(0, BOT_MSGS.length - 1);
