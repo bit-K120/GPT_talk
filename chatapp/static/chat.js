@@ -21,18 +21,15 @@ var socket = io();
 socket.on('new_speech', function(data) {
   const msgerInput = data.speech_text;
   console.log(msgerInput);
-
+  
   const msgText = msgerInput
   if (!msgText) return;
 
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
-  msgerInput.value = "";
+  // msgerInput.value = "";
 
   botResponse();
 });
-
-
-
 
 
 function appendMessage(name, img, side, text) {
@@ -55,6 +52,7 @@ function appendMessage(name, img, side, text) {
   msgerChat.insertAdjacentHTML("beforeend", msgHTML);
   msgerChat.scrollTop += 500;
 }
+
 
 function botResponse() {
   const r = random(0, BOT_MSGS.length - 1);
