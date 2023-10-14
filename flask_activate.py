@@ -7,6 +7,7 @@ from flask_socketio import SocketIO
 def flask_main():
     
     app = Flask(__name__)
+    app.secret_key = "1234"
     socketio = SocketIO(app)
 
     @app.route('/', methods = ["GET","POST"])
@@ -38,6 +39,10 @@ def flask_main():
 
         # Now you have the speech_text, and you can handle it as needed
         
+    @socketio.on("my event")
+    def handle_connect(data):
+        print(data)
+
 
     @socketio.on('speech_detected')
     def handle_speech(data):
