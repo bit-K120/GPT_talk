@@ -21,8 +21,8 @@ def AI_chat_Mi7B():
         if user_input:
             print(f"You:{user_input}")
             # exitまたはbyeで終了
-            if user_input.lower() in ["終了", "さようなら","またね"]:
-                text_to_speech("またね!")
+            if user_input.lower() in ["finish", "quit","exit"]:
+                text_to_speech("Bye")
                 break
             # perplexityのメッセージ設定
         messages = [
