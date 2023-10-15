@@ -17,13 +17,16 @@ const PERSON_NAME = "User";
 
 // var socket = io.connect('http://localhost:8000/socket.io/socket.io.js');
 
-var socket = io({autoConnect:false});
+// var socket = io({autoConnect:false});
+var socket = io();
+
 
 socket.on("connect", function(){
     console.log("socket connected");
 })
 
 document.getElementsByClassName("msger-send-btn")[0].addEventListener("click", function(){
+      console.log("button clicked!")
       socket.emit("voice_recog_init", {message: "just go for it!"});
 });
 
@@ -51,10 +54,16 @@ socket.on('gpt_input', function(data) {
 
 });
 
+socket.on('Mi7B_input', function(data) {
+  const botInput = data.gpt_input;
+  console.log(botInput);
+  
+  const msgText = botInput
+  if (!msgText) return;
 
+  appendMessage(BOT_NAME, PERSON_IMG, "left", msgText);
 
-//   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
-//   msgerInput.value = "";
+});
 
 function appendMessage(name, img, side, text) {
   //   Simple solution for small apps

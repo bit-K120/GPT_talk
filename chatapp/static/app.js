@@ -23,6 +23,22 @@ $(document).ready(() => {
     .then(data => alert(data));
   });
 
+var socket = io();
+
+socket.on("connect", function(){
+    console.log("socket connected");
+});
+
+document.getElementById("chatGPT").addEventListener("click", function(){
+      console.log("chatGPT selected!")
+      socket.emit("chatGPT_Selected", {message: "OpenAI, I'm counting on you!"});
+});
+
+document.getElementById("Mistral_7b").addEventListener("click", function(){
+      console.log("Mistral_7b selected!")
+      socket.emit("Mistral_7b_Selected", {message: "You can do it!"});
+});
+
 
   // get navigation width while relative and apy width to fixed position
   const nav_width = $(".nav-container").width();

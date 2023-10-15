@@ -1,5 +1,4 @@
 from flask import Flask
-
 from .events import socketio
 from .routes import main 
 
