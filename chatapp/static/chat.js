@@ -17,7 +17,16 @@ const PERSON_NAME = "User";
 
 // var socket = io.connect('http://localhost:8000/socket.io/socket.io.js');
 
-var socket = io();
+var socket = io({autoConnect:false});
+
+socket.on("connect", function(){
+    console.log("socket connected");
+})
+
+document.getElementsByClassName("msger-send-btn")[0].addEventListener("click", function(){
+      socket.emit("voice_recog_init", {message: "just go for it!"});
+});
+
 socket.on('new_speech', function(data) {
   const msgerInput = data.speech_text;
   console.log(msgerInput);
@@ -39,9 +48,10 @@ socket.on('gpt_input', function(data) {
   if (!msgText) return;
 
   appendMessage(BOT_NAME, PERSON_IMG, "left", msgText);
-  // msgerInput.value = "";
 
 });
+
+
 
 //   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
 //   msgerInput.value = "";

@@ -4,3 +4,4 @@ gpt-talk.json
 __pycache__
 output.mp3
 user_said.txt
+flask_activate.py

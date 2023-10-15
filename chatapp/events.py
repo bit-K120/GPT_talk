@@ -1,6 +1,7 @@
 from flask import request
 from flask_socketio import emit
 from .extensions import socketio
+from main import main
 
 
 @socketio.on("connect")
@@ -23,3 +24,8 @@ def handle_gpt(data):
         gpt_input = file.read()
     print("gpt response about to be emitted!")
     socketio.emit("gpt_input", {"gpt_input": gpt_input})
+
+@socketio.on("voice_recog_init")
+def handle_voice_detect(data):
+    print("voice recog initiated!")
+    main()
