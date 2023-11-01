@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route('/chat', methods = ["GET"])
 def chat():
     try:
-        return render_template("chat.html")
+        return render_template("chat_1.html")
     except Exception as e:
         return str(e)
 
