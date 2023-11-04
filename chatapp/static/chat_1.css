@@ -3,8 +3,8 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
+/* The main container */
 
-/* Styling the main container */
 .container {
     width: 80%;
     margin: auto;
@@ -12,6 +12,7 @@
     letter-spacing: 0.5px;
     height: 80%;
 }
+
 
 img {
     width: 50px;
@@ -31,7 +32,7 @@ img {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
-/* Styling the profile picture */
+
 .msgimg {
     margin-left: 2%;
     float: left;
@@ -54,11 +55,12 @@ img {
     height: 10%;
  
 }
-/* Styling the inbox */
+/* Styling the chat box container */
 .chat-page {
     padding: 0 0 50px 0;
+    
 }
-
+/* チャットバーの大きさを変える */
 .msg-inbox {
     border: 1px solid #ccc;
     overflow: hidden;
@@ -71,7 +73,11 @@ img {
     padding: 30px 15px 0 25px;
 }
 
+/* Styling the message page */
+
 .msg-page {
+    display:flex;
+    flex-direction:column-reverse;
     max-height: 500px;
     overflow-y: auto;
 }
@@ -155,13 +161,13 @@ received-chats-img {
     width: 50px;
     float: left;
 }
-
+/* styling the message bubble of received msg */
 .received-msg {
     display: inline-block;
     padding: 0 0 0 10px;
-    vertical-align: top;
-    width: 92%;
-}
+    vertical-align: top;    /* this is just to adjust vertical positioning on "INLINE" element relative to its baseline,  */
+    width: 92%;             /* NOT to adjust the position of the chat-msge relative to the page. */
+}                           /* INLINE only concerns with its line belongs to the parent block, without starting a new line.*/
 .received-msg-inbox {
     width: 57%;
 }
@@ -187,6 +193,7 @@ received-chats-img {
     font-size: 12px;
     margin: 8px 0 0;
 }
+
 .outgoing-chats {
     overflow: hidden;
     margin: 26px 20px;
@@ -216,6 +223,7 @@ received-chats-img {
     float: right;
     margin-right: 1rem;
 }
+
 @media only screen and (max-device-width: 850px) {
     *,
     .time {
@@ -259,4 +267,14 @@ received-chats-img {
         font-size: 28px;
     }
 }
+
+
+
+
+
+
+
+
+
+
 
