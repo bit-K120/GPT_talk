@@ -71,6 +71,7 @@ img {
 
 .chats {
     padding: 30px 15px 0 25px;
+    height:100%;
 }
 
 /* Styling the message page */
@@ -78,8 +79,9 @@ img {
 .msg-page {
     display:flex;
     flex-direction:column-reverse;
-    max-height: 500px;
+    max-height: 100%;
     overflow-y: auto;
+    height:100%;
 }
 
 /* Styling the msg-bottom container */
