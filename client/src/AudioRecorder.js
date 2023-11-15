@@ -6,7 +6,7 @@ const AudioRecorder = () => {
   const [recorder, setRecorder] = useState(null); //sets the recorder falsy by setting the state "null"
   const [audioData, setAudioData] = useState([]);
   const [audioExtension, setAudioExtension] = useState('');
-// stateの記述!
+// stateの記述
 
   useEffect(() => {
     // Access the microphone and create a MediaRecorder instance
@@ -18,15 +18,23 @@ const AudioRecorder = () => {
           setAudioData(currentData => [...currentData, e.data]);  
           setAudioExtension(getExtension(e.data.type)); // 受け取った音声データの拡張子を取得
         };
-        newRecorder.onstop = () => {                //録音が止まった時に起動する関数
-          const audioBlob = new Blob(audioData);//データを保存する前にstateのaudioDataをすべてBlobに変換
-          const url = URL.createObjectURL(audioBlob); //作成したBlobデータのURLを作成
-          const a = document.createElement('a'); //aタグを作成
-          a.href = url;  // aタグのhrefに先ほど作成したURLを設定
-          a.download = 'recording${getExtension(audioBlob.type)}'; //aタグのダウンロード機能を設定し、ファイル名をrecording.extensionに。
-          a.click();           //aタグをクリック
-          URL.revokeObjectURL(url); // URLを空に
-        };
+        newRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioData);
+            try {
+              const transcript = await sendAudioToGoogleCloud(audioBlob);
+              // Update your component's state or UI with the transcript
+            } catch (error) {
+              console.error("Error transcribing audio", error);
+              // Handle errors and provide user feedback
+            }
+          };
+
+          const sendAudioToGoogleCloud = async (audioBlob) => {
+            // Convert Blob to a format accepted by Google API
+            // Make an HTTP request to Google Cloud Speech-to-Text API with the audio data
+            // Return the transcript received from the API
+          };
+
         setRecorder(newRecorder); //（ようわからん）state内のRecorderをnewRecorderに設定
         setStatus('ready');    //statusをreadyに
       })
