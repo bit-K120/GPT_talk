@@ -6,7 +6,7 @@ const AudioRecorder = () => {
   const [recorder, setRecorder] = useState(null); //sets the recorder falsy by setting the state "null"
   const [audioData, setAudioData] = useState([]);
   const [audioExtension, setAudioExtension] = useState('');
-// stateの記述
+// stateの記述!
 
   useEffect(() => {
     // Access the microphone and create a MediaRecorder instance
