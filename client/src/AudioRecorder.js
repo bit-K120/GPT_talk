@@ -10,30 +10,29 @@ const AudioRecorder = () => {
 
   useEffect(() => {
     // Access the microphone and create a MediaRecorder instance
-    navigator.mediaDevices.getUserMedia({ audio: true }) // getting input from a Media device, audio:true is for selecting audio device.   
-      .then((stream) => {                                // ".then" is for if a a permission for the Media device is granted. The audio data will be stored in 
-                                                       // the parameter "stream". 
+    navigator.mediaDevices.getUserMedia({ audio: true }) // メディアにアクセス   
+      .then((stream) => {                               
         const newRecorder = new MediaRecorder(stream);  // "stream"を規定値MediaRecorderに入れながら、変数newRecorderを設定
         newRecorder.ondataavailable = e => {            //if a data is avaliable inside, the data will be stored in e 
           setAudioData(currentData => [...currentData, e.data]);  
           setAudioExtension(getExtension(e.data.type)); // 受け取った音声データの拡張子を取得
         };
-        newRecorder.onstop = async () => {
-            const audioBlob = new Blob(audioData);
-            try {
-              const transcript = await sendAudioToGoogleCloud(audioBlob);
-              // Update your component's state or UI with the transcript
-            } catch (error) {
-              console.error("Error transcribing audio", error);
-              // Handle errors and provide user feedback
-            }
-          };
 
-          const sendAudioToGoogleCloud = async (audioBlob) => {
-            // Convert Blob to a format accepted by Google API
-            // Make an HTTP request to Google Cloud Speech-to-Text API with the audio data
-            // Return the transcript received from the API
-          };
+        // レコードが終了したら以下の処理
+        newRecorder.onstop = async () => {
+          const audioBlob = new Blob(audioData, { type: 'audio/wav' }); // blobのファイル形式を確認
+          try {
+            const transcript = await sendAudioToGoogleCloud(audioBlob);//ここを定義しないといけない
+            console.log(transcript); // Log or use the transcript as needed
+
+            // Create a text file from the transcript
+            const textBlob = new Blob([transcript], { type: 'text/plain' });
+            await sendTextFileToServer(textBlob); // Function to send text file to the server
+          } catch (error) {
+            console.error("Error transcribing audio", error);
+            // Handle errors and provide user feedback
+          }
+        };
 
         setRecorder(newRecorder); //（ようわからん）state内のRecorderをnewRecorderに設定
         setStatus('ready');    //statusをreadyに
@@ -61,6 +60,34 @@ const AudioRecorder = () => {
       extension = matches[1];
     }
     return '.' + extension;
+  };
+
+  const sendAudioToGoogleCloud = async (audioBlob) => {
+
+  };
+
+
+  // Function to send text file to the server
+  const sendTextFileToServer = async (textBlob) => {
+    const formData = new FormData();   //FormDataのObjectを作成
+    formData.append('file', textBlob, 'transcript.txt'); //textBlobをtranscript.txtとしてFormDataに追加
+
+    try {
+      const response = await fetch('http://localhost:5000/upload', { // Replace with your server endpoint
+        method: 'POST',
+        body: formData   
+      });  //formDataをサーバーに送る
+
+      if (!response.ok) {
+        throw new Error("Server response wasn't OK");
+      }
+
+      // Handle the response from the server
+      // For example, you can log the response or use it in your UI
+    } catch (error) {
+      console.error('Error sending text file to server:', error);
+      throw error;
+    }
   };
 
   return (

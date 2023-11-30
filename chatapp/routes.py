@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
 main = Blueprint("main", __name__)
 
@@ -10,4 +10,9 @@ def index():
 def chat():
     return render_template("chat.html")
 
+@main.route("/upload", methods=["POST"])
+def upload_file():
+    file= request.files["file"]
+    file.save("/path/to/save" + user_said.txt)
+    return "File uploaded successfully"
 

@@ -31,6 +31,7 @@ def text_to_speech(gpt_response):
     
     play_voice()
 
+# 音声を生成するのと再生するのは別々だからplay_voiceで音声の再生も作る。
 def play_voice():
     pygame.mixer.init()
     pygame.mixer.music.load("output.mp3")

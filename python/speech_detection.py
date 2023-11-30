@@ -19,7 +19,7 @@ def recognise_speech_from_mic():
             if hasattr(recognizer, recognition_method):
             text = getattr(recognizer, recognition_method)(audio, language="en-GB") #ここのaudio部分がブラウザーになればいい
             with open("user_said.txt", "w") as file:
-                file.write(text)      #ここで音声ファイルの保存
+                file.write(text)      #ここで読み込んだテキストファイルの保存
             sio = socketio.Client()
 
             @sio.event

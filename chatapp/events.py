@@ -3,12 +3,12 @@ from flask_socketio import emit
 from .extensions import socketio
 from main import main
 
-
+# socketの起動
 @socketio.on("connect")
 def handle_connect():
     print("Client connected")
 
-
+# 
 @socketio.on("speech_detected")
 def handle_speech(data):
     print("speech_detected!")
@@ -35,10 +35,6 @@ def handle_gpt(data):
     socketio.emit("Mi7B_input", {"gpt_input": gpt_input})
 
 
-@socketio.on("voice_recog_init")
-def handle_voice_detect(data):
-    print("voice recog initiated!")
-    main()
 
 
 

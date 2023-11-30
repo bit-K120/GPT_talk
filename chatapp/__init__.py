@@ -1,5 +1,6 @@
 from flask import Flask
 from .events import socketio
+from flask_cors import CORS
 from .routes import main 
 
 
@@ -10,6 +11,7 @@ def create_app():
 
     app.register_blueprint(main)
 
-    socketio.init_app(app)
-
+    # used to be .... socketio.init_app(app)
+    CORS(app)
+    socketio.init_app(app,cors_allowed_origins="*")
     return app
