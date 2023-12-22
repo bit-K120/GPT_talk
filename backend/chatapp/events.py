@@ -16,11 +16,13 @@ def ai_response(data):
     print("Reactからuser_inputを受け取りました。")
     if data:
         user_input = data
-        gpt_response, text_to_speech_data = AI_chat_GPT(user_input)
-        print("1回目のgpt_response:", gpt_response)
-        # elif selected_ai == "Mistral 7B":
-        #     gpt_response, text_to_speech_data = AI_chat_Mi7B(user_input)
-        #     socketio.emit("response_to_react",{"gpt_response":gpt_response, "text_to_speech_data":text_to_speech_data})
+        selected_ai = global_state.ai_selection
+        if selected_ai == "chat GPT":
+            gpt_response, text_to_speech_data = AI_chat_GPT(user_input)
+            socketio.emit("response_to_react",{"gpt_response":gpt_response, "text_to_speech_data":text_to_speech_data})
+        elif selected_ai == "Mistral 7B":
+            gpt_response, text_to_speech_data = AI_chat_Mi7B(user_input)
+            socketio.emit("response_to_react",{"gpt_response":gpt_response, "text_to_speech_data":text_to_speech_data})
     else:
         print("Reactからuser_inputを受信できませんでした。")     
 
