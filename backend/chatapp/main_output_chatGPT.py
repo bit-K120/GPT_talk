@@ -27,8 +27,8 @@ def AI_chat_GPT(voice_input):
     # )
     # # aiから生成されたものから文字部分のみ抽出
     # gpt_response = response.choices[0].message.content
-    print(f"AI:{gpt_response}") 
     gpt_response = "Hello World"
+    print(f"AI:{gpt_response}") 
     text_to_speech_data = create_text_to_speech(gpt_response)
     
     return gpt_response, text_to_speech_data
