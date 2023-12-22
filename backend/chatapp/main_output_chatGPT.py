@@ -18,17 +18,17 @@ def AI_chat_GPT(voice_input):
     else: 
         print("user_inputを受け取っていません")
     # aiの設定
-    response = openai.ChatCompletion.create(
-        model = "gpt-3.5-turbo-1106",
-        messages = [{"role": "system", "content": "You are a friendly language teacher. Your response must be less than 50 words."},
-                    {"role": "system", "content": user_input}
-        ],
-        max_tokens=100
-    )
-    # aiから生成されたものから文字部分のみ抽出
-    gpt_response = response.choices[0].message.content
+    # response = openai.ChatCompletion.create(
+    #     model = "gpt-3.5-turbo-1106",
+    #     messages = [{"role": "system", "content": "You are a friendly language teacher. Your response must be less than 50 words."},
+    #                 {"role": "system", "content": user_input}
+    #     ],
+    #     max_tokens=100
+    # )
+    # # aiから生成されたものから文字部分のみ抽出
+    # gpt_response = response.choices[0].message.content
     print(f"AI:{gpt_response}") 
-    gpt_response = "gpt_response"
+    gpt_response = "Hello World"
     text_to_speech_data = create_text_to_speech(gpt_response)
     
     return gpt_response, text_to_speech_data
