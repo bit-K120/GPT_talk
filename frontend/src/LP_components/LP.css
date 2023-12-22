@@ -1,0 +1,96 @@
+        .custom-navbar .navbar-brand {
+            background-color: rgba(255, 255, 255, 0.8);
+            margin-left:20px;
+            box-shadow: none;
+        }
+
+        .col {
+            padding-left: 10px;   /* Adjust as needed */
+            padding-right: 10px;  /* Adjust as needed */
+        }
+
+        .container-fluid.d-flex {
+            margin-top: 0px;
+            background-color: transparent; 
+        }
+        .left-section.col {
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 50%;
+        }
+        .logo {
+            width: 350px; /* Adjust based on your needs */
+            margin-left: 300px;
+        }
+        .dropdowns-container {
+            margin-left: 0px;
+            padding-left: 15px;
+            position:relative;
+            z-index: 1000;
+            overflow: visible;
+            }
+            /* Custom styling for dropdowns */
+            .btn.btn-secondary.dropdown-toggle {
+                margin-right: 10px; /* spacing between dropdown buttons */
+            }
+
+            .dropdown-menu {
+                min-width: 200px; /* adjust as per your requirement */
+                background-color: transparent;
+            }
+                .custom-dropdown-menu {
+                z-index: 10001;
+                }
+
+            .text-above-button{
+                font-size:20px;
+            }
+            .custom-margin {
+                margin-bottom: 0;
+            }
+                .btn-group-1 .btn-secondary {
+                    padding: 5px 50px; /* Increase horizontal padding */
+                    background-color: transparent;
+                }
+                .btn-group-2 .btn-secondary {
+                    padding: 5px 50px; /* Increase horizontal padding */
+                    background-color: transparent;
+
+                }
+                .btn-group-3 .btn-secondary {
+                    padding: 5px 50px; /* Increase horizontal padding */
+                    background-color: transparent;
+
+                }
+        
+
+        .btn-container {
+            margin-top:20px;
+            display: flex;
+            align-items: center; /* Vertically center align the items */
+            gap: 60px; /* Space between the button and paragraph */
+        }
+            .btn.btn-dark{
+                margin-left:60px !important;
+                padding:10px 20px !important;
+                font-size:18px !important;
+                font-weight:bold;
+                white-space: nowrap;
+            }
+            .get-started-link{
+                color:white;
+                text-decoration: inherit;
+            }
+            .catch-phrase{
+                font-size:17px !important;
+                margin-top: 20px;
+
+            }
+    
+        .right-section.col img {
+            width: 60%; 
+            margin-left:65px;
+        }
+       
