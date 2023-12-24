@@ -25,7 +25,6 @@ def AI_chat_GPT(voice_input):
         ],
         max_tokens=100
     ) 
-    # C:\Users\kayug\VscordProjects\Portofolio\React_fix\backend
     # aiから生成されたものから文字部分のみ抽出
     gpt_response = response.choices[0].message.content
     # gpt_response = "Hello World"
