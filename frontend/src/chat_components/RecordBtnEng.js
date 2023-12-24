@@ -21,7 +21,7 @@ const RecordBtnEng = ({onAppendMessage}) => {
 
 
   useEffect(() => {
-    const newSocket = io(serverURL)
+    const newSocket = io(serverURL, {secure:true});
     setSocket(newSocket)
     // socketに接続
     newSocket.on("response_to_react", (data) => {

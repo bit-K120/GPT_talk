@@ -11,7 +11,7 @@ const Dropdowns = ({onLanguageSelect}) => {
 
 
     useEffect (() => {
-        const newSocket = io(serverURL)
+        const newSocket = io(serverURL, {secure:true});
         setSocket(newSocket);
 
         return () => {
