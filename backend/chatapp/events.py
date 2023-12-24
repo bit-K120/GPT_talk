@@ -19,7 +19,8 @@ def ai_response(data):
         selected_ai = global_state.ai_selection
         if selected_ai == "chat GPT":
             gpt_response, text_to_speech_data = AI_chat_GPT(user_input)
-            socketio.emit("response_to_react",{"gpt_response":gpt_response, "text_to_speech_data":text_to_speech_data})
+            print("gptから受け取った返事",gpt_response) 
+            # socketio.emit("response_to_react",{"gpt_response":gpt_response, "text_to_speech_data":text_to_speech_data})
         elif selected_ai == "Mistral 7B":
             gpt_response, text_to_speech_data = AI_chat_Mi7B(user_input)
             socketio.emit("response_to_react",{"gpt_response":gpt_response, "text_to_speech_data":text_to_speech_data})
